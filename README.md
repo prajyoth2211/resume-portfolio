@@ -104,11 +104,15 @@ git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
 git push -u origin main
 ```
 
-### 2. Enable GitHub Pages
+### 2. Enable GitHub Pages (required — fixes deploy 404)
 
-1. Open your repo on GitHub → **Settings** → **Pages**
-2. Under **Build and deployment** → **Source**, choose **GitHub Actions**
-3. Push to `main` (or run the workflow manually under **Actions**)
+The **build** job can succeed while **deploy** fails with `HttpError: Not Found` if Pages is not enabled yet.
+
+1. **[Pages settings](https://github.com/prajyoth2211/resume-portfolio/settings/pages)** → **Build and deployment**
+2. **Source** → select **GitHub Actions** (not “Deploy from a branch”)
+3. **[Actions settings](https://github.com/prajyoth2211/resume-portfolio/settings/actions)** → **General** → **Workflow permissions**
+4. Choose **Read and write permissions** → **Save**
+5. **[Actions tab](https://github.com/prajyoth2211/resume-portfolio/actions)** → open the failed run → **Re-run all jobs**
 
 The workflow `.github/workflows/deploy-github-pages.yml` builds the site and deploys the `out/` folder.
 
